@@ -1,6 +1,7 @@
 const container = document.getElementById("container");
 const slider = document.getElementById("slider");
 const sliderNumber = document.getElementById("sliderNumber");
+const updateGridBtn = document.getElementById("updateGridBtn");
 
 function createDiv() {
   const div = document.createElement("div");
@@ -27,10 +28,21 @@ function createGrid(gridNumber) {
     container.appendChild(generateRow(gridNumber));
   }
 }
-createGrid(50);
+createGrid(16);
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
 
 sliderNumber.innerHTML = slider.value;
 
 slider.oninput = function () {
   sliderNumber.innerHTML = this.value;
 };
+
+updateGridBtn.addEventListener("click", () => {
+  removeAllChildNodes(container);
+  createGrid(slider.value);
+});
