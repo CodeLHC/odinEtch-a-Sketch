@@ -1,4 +1,6 @@
 const container = document.getElementById("container");
+const slider = document.getElementById("slider");
+const sliderNumber = document.getElementById("sliderNumber");
 
 function createDiv() {
   const div = document.createElement("div");
@@ -25,4 +27,10 @@ function createGrid(gridNumber) {
     container.appendChild(generateRow(gridNumber));
   }
 }
-createGrid(16);
+createGrid(50);
+
+sliderNumber.innerHTML = slider.value;
+
+slider.oninput = function () {
+  sliderNumber.innerHTML = this.value;
+};
