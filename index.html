@@ -8,11 +8,21 @@
     <script src="index.js" defer></script>
   </head>
   <body>
-    <div class="sliderContainer">
-      <input type="range" min="4" max="100" id="slider" value="16" />
-      <p>Value: <span id="sliderNumber"></span></p>
-      <button id="updateGridBtn">Update Grid</button>
+    <h1>Etch-a-Sketch</h1>
+    <div id="display">
+      <div class="sliderContainer">
+        <p>Customise Grid Size:</p>
+        <input type="range" min="4" max="100" id="slider" value="16" />
+        <p>Value: <span id="sliderNumber"></span></p>
+        <button id="updateGridBtn">Reset Grid</button>
+        <p>Add some Magic:</p>
+        <button id="useMagicPen">Use the Magic Pen</button>
+        <p>Back to Basic:</p>
+        <button id="useBlackPen">Use the Black Pen</button>
+      </div>
+      <div id="border">
+        <div id="container"></div>
+      </div>
     </div>
-    <div id="container"></div>
   </body>
 </html>

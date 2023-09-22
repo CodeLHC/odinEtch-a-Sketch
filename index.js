@@ -46,3 +46,7 @@ updateGridBtn.addEventListener("click", () => {
   removeAllChildNodes(container);
   createGrid(slider.value);
 });
+
+// Transform the behavior of a square when interacting with the mouse by introducing a series of modifications.
+
+// Rather than a simple color change from black to white, each interaction should randomize the square’s RGB value entirely.
