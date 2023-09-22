@@ -2,13 +2,24 @@ const container = document.getElementById("container");
 const slider = document.getElementById("slider");
 const sliderNumber = document.getElementById("sliderNumber");
 const updateGridBtn = document.getElementById("updateGridBtn");
+const magicButton = document.getElementById("useMagicPen");
+const basicButton = document.getElementById("useBasicPen");
+
+const DEFAULT_COLOR = "black";
+let currentColor = DEFAULT_COLOR;
 
 function createDiv() {
   const div = document.createElement("div");
   div.classList.add("box");
   div.addEventListener("mouseenter", (e) => {
     if (e.target.matches(".box")) {
-      e.target.classList.add("active");
+      if (currentColor === "magic") {
+        const randomR = Math.floor(Math.random() * 256);
+        const randomG = Math.floor(Math.random() * 256);
+        const randomB = Math.floor(Math.random() * 256);
+        e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
+      } else if (currentColor === DEFAULT_COLOR)
+        e.target.style.backgroundColor = DEFAULT_COLOR;
     }
   });
   return div;
@@ -47,6 +58,10 @@ updateGridBtn.addEventListener("click", () => {
   createGrid(slider.value);
 });
 
-// Transform the behavior of a square when interacting with the mouse by introducing a series of modifications.
+magicButton.addEventListener("click", () => {
+  currentColor = "magic";
+});
 
-// Rather than a simple color change from black to white, each interaction should randomize the square’s RGB value entirely.
+basicButton.addEventListener("click", () => {
+  currentColor = DEFAULT_COLOR;
+});
