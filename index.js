@@ -6,18 +6,16 @@ const magicButton = document.getElementById("useMagicPen");
 const basicButton = document.getElementById("useBasicPen");
 
 const DEFAULT_COLOR = "black";
+const MAGIC_COLOR = "magic";
 let currentColor = DEFAULT_COLOR;
 
-function createDiv() {
+function createBox() {
   const div = document.createElement("div");
   div.classList.add("box");
   div.addEventListener("mouseenter", (e) => {
     if (e.target.matches(".box")) {
-      if (currentColor === "magic") {
-        const randomR = Math.floor(Math.random() * 256);
-        const randomG = Math.floor(Math.random() * 256);
-        const randomB = Math.floor(Math.random() * 256);
-        e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
+      if (currentColor === MAGIC_COLOR) {
+        e.target.style.backgroundColor = randomRGB();
       } else if (currentColor === DEFAULT_COLOR)
         e.target.style.backgroundColor = DEFAULT_COLOR;
     }
@@ -25,11 +23,20 @@ function createDiv() {
   return div;
 }
 
+const randomColorValue = () => Math.floor(Math.random() * 256);
+
+function randomRGB() {
+  const r = randomColorValue();
+  const g = randomColorValue();
+  const b = randomColorValue();
+  return `rgb(${r}, ${g}, ${b}`;
+}
+
 function generateRow(gridNumber) {
   const row = document.createElement("div");
   row.classList.add("row");
   for (let i = 1; i <= gridNumber; i++) {
-    row.appendChild(createDiv(gridNumber));
+    row.appendChild(createBox(gridNumber));
   }
   return row;
 }
@@ -39,7 +46,6 @@ function createGrid(gridNumber) {
     container.appendChild(generateRow(gridNumber));
   }
 }
-createGrid(16);
 
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
@@ -47,11 +53,13 @@ function removeAllChildNodes(parent) {
   }
 }
 
-sliderNumber.innerHTML = slider.value;
+function setSlider() {
+  sliderNumber.innerText = slider.value;
+}
 
-slider.oninput = function () {
-  sliderNumber.innerHTML = this.value;
-};
+slider.addEventListener("input", () => {
+  setSlider();
+});
 
 updateGridBtn.addEventListener("click", () => {
   removeAllChildNodes(container);
@@ -59,9 +67,12 @@ updateGridBtn.addEventListener("click", () => {
 });
 
 magicButton.addEventListener("click", () => {
-  currentColor = "magic";
+  currentColor = MAGIC_COLOR;
 });
 
 basicButton.addEventListener("click", () => {
   currentColor = DEFAULT_COLOR;
 });
+
+createGrid(16);
+setSlider();
